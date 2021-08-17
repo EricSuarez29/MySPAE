@@ -1,0 +1,87 @@
+<article class="row col-12 p-0 m-0 mb-3 mt-sm-0 mt-lg-1 mt-xxl-0">
+    <figure class="figure mt-3 banner-top m-0 p-0">
+        <div>
+            <span></span>
+            <img src="assets/images/banner-tratamientos.png" class="img-fluid" alt="productos de spa">
+            <figcaption class="figure-caption align-self-center fs-1">Productos</figcaption>
+        </div>
+    </figure>
+</article>
+
+<article class="main-modal col-8">
+    <div class="form formulario col-10 col-sm-6 col-xxl-4 p-3 p-xl-5">
+        <div class="row p-0 m-0">
+            <h2 class="mb-5 title-form">Nuevo Producto</h2>
+            <div class="form-floating mb-4 col-3">
+                <input type="text" class="form-control" name="id" id="id" placeholder="example" autocomplete="off"
+                    required>
+                <label for="id" class="mx-3">Id</label>
+            </div>
+            <div class="form-floating mb-4 col-9">
+                <input type="text" class="form-control" name="name" id="name" placeholder="example" autocomplete="off"
+                    required>
+                <label for="name" class="mx-3">Nombre</label>
+            </div>
+            <div class="form-floating mb-4 col-6">
+                <input type="text" class="form-control" name="brand" id="brand" placeholder="example" autocomplete="off"
+                    reaquired>
+                <label for="brand" class="mx-3">Marca</label>
+            </div>
+            <div class="form-floating mb-4 col-6">
+                <input type="text" class="form-control" name="price" id="price" placeholder="example" autocomplete="off"
+                    required>
+                <label for="price" class="mx-3">Precio</label>
+            </div>
+            <input type="hidden" name="action" id="action" value="CREATE">
+            <input type="hidden" name="position" id="position" value="">
+            <div class="row col-12 col-xl-8 m-auto p-0">
+                <div class="col-6">
+                    <button class="btn w-100 create" onclick="accion();">Crear</button>
+                </div>
+                <div class="col-6">
+                    <a class="btn cancelar w-100" onclick="showModal(false);">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<div class="col-12 mt-5 mt-xl-3 px-3 px-xl-4">
+    <div class="row mb-3 m-0 p-0">
+        <div class="col-5 col-sm-3 col-xl-2 d-flex justify-content-start">
+            <button class="btn w-100 btn-new" onclick="showModal(true)"><i class="fas fa-file-alt"></i> Nuevo</button>
+        </div>
+    </div>
+    <div class="row scrollbar p-0 m-0 mb-5 mb-lg-0">
+        <table class="table table-min table-theme table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Estatus</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<template id="templ-producto">
+    <tr class="fila">
+        <td class="id"></td>
+        <td class="name"></td>
+        <td class="brand"></td>
+        <td class="price"></td>
+        <td class="status"></td>
+        <td>
+            <button class="update btn">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete btn">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>
+    </tr>
+</template>
+<script type="text/javascript" src="pages/producto/producto.js"></script>
