@@ -151,6 +151,10 @@ a {
     min-width: 800px;
 }
 
+.table-extra-medium {
+    min-width: 1000px;
+}
+
 .table-min {
     min-width: 500px;
 }
@@ -350,6 +354,11 @@ a {
 .estilos {
     height: 1px;
     width: 100px;
+}
+
+.descript,
+.description {
+    max-width: 250px;
 }
 
 /* #carousel-images {

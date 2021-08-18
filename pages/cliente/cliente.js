@@ -1,5 +1,4 @@
 var d = document,
-    $template = d.getElementById(`templ-cliente`).content,
     $tbody = d.querySelector(`tbody`),
     $form = d.querySelector(`.formulario`);
 
@@ -21,11 +20,12 @@ var clientes = [
 ]
 
 
-function setUpdateElements(btnUpdate){
+function setUpdateElements(id){
     $form.querySelector(`.title-form`).textContent = `Editar Cliente`;
-    $form.querySelector(`[type='submit']`).value = `Editar`;
+    $form.querySelector(`.create`).value = `Editar`;
 
-    var btnUpdate = btnUpdate.dataset;
+    var btnUpdate = getClienteById(id);
+    console.log(btnUpdate)
     $form.querySelector(`#id`).value = btnUpdate.id;
     $form.querySelector(`#name`).value = btnUpdate.name;
     $form.querySelector(`#address`).value = btnUpdate.address;
@@ -46,24 +46,44 @@ function setUpdateElements(btnUpdate){
     $form.querySelector(`#action`).value = `UPDATE`;
     var i = searchClientById(parseInt(btnUpdate.id));
     $form.querySelector(`#position`).value = i;
+
+    showModal(true);
 }
 
 // CRUD ----------------------------------------------------------------
 
+/**
+ * Esta función gestiona las acciones al momendo de crear o actualizar un elemento.
+ */
+
+
+function accion(){
+    var $accion = d.getElementById(`action`);
+    if($accion.value === `CREATE`){
+        create();
+    }
+    if($accion.value === `UPDATE`){
+        update();
+    }
+}
+
 function create(form){
     var cliente = new Object();
 
-    cliente.id = parseInt(form.id.value);
-    cliente.name = form.name.value;
-    cliente.address = form.address.value;
-    cliente.last_pa = form.last_pa.value;
-    cliente.last_ma = form.last_ma.value;
-    cliente.gender = form.gender.value;
-    cliente.rfc = form.rfc.value;
-    cliente.tel = form.tel.value;
-    cliente.email = form.email.value;
-    cliente.user = form.user.value;
-    cliente.password = form.password.value;
+    cliente.id = parseInt(d.getElementById(`id`).value);
+    cliente.name = d.getElementById(`name`).value;
+    cliente.address = d.getElementById(`address`).value;
+    cliente.last_pa = d.getElementById(`last_pa`).value;
+    cliente.last_ma = d.getElementById(`last_ma`).value;
+    cliente.gender = 
+    d.getElementById(`man-gender`).checked ? `H` 
+    : d.getElementById(`woman-gender`).checked ? `M`
+    : `O`;
+    cliente.rfc = d.getElementById(`rfc`).value;
+    cliente.tel = d.getElementById(`tel`).value;
+    cliente.email = d.getElementById(`email`).value;
+    cliente.user = d.getElementById(`user`).value;
+    cliente.password = d.getElementById(`password`).value;
     cliente.status = 1;
 
     var i = searchClientById(cliente.id);
@@ -93,23 +113,50 @@ function create(form){
     }
 
     clearForm();
+    showModal(false);
     readAllElements();
 }
 
 function readAllElements(){
-    var $fragmento = d.createDocumentFragment();
+    var contenido = ``;
     for(var i = 0; i < this.clientes.length; i++){
-        setRowTable(this.clientes[i], $fragmento);
+        contenido+= getContentRow(clientes[i]);
     }
-    $tbody.innerHTML = '';
-    $tbody.appendChild($fragmento);
+    $tbody.innerHTML = contenido;
+}
+
+function getContentRow(el){
+    return `
+    <tr class="fila">
+        <td class="id">${el.id}</td>
+        <td class="name">${el.name}</td>
+        <td class="address">${el.address}</td>
+        <td class="last_pa">${el.last_pa}</td>
+        <td class="last_ma">${el.last_ma}</td>
+        <td class="gender">${el.gender}</td>
+        <td class="rfc">${el.rfc}</td>
+        <td class="tel">${el.tel}</td>
+        <td class="email">${el.email}</td>
+        <td class="user">${el.user}</td>
+        <td class="password">${el.password}</td>
+        <td class="status">${el.status}</td>
+        <td>
+            <button class="update btn" onclick="setUpdateElements(${el.id})">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete btn" onclick="deleteById(${el.id})">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>
+    </tr>
+    `;
 }
 
 // Recibe por parametro el formulario donde se genero el evento
 
 function update(form){
-    var i = parseInt(form.position.value);
-    var j = searchClientById(parseInt(form.id.value));
+    var i = parseInt(d.getElementById(`position`).value);
+    var j = searchClientById(parseInt(d.getElementById(`id`).value));
 
     if(j !== -1 && j !== i) {
         
@@ -123,24 +170,25 @@ function update(form){
             timer: 2500,
             showConfirmButton: false
         });
-
         return;
     }
 
-    this.clientes[i].id = parseInt(form.id.value);
-    this.clientes[i].name = form.name.value;
-    this.clientes[i].address = form.address.value;
-    this.clientes[i].last_pa = form.last_pa.value;
-    this.clientes[i].last_ma = form.last_ma.value;
-    this.clientes[i].gender = parseInt(form.gender.value) === 1
-        ? `H`
-        : form.gender.value;
-    this.clientes[i].rfc = form.rfc.value;
-    this.clientes[i].tel = form.tel.value;
-    this.clientes[i].email = form.email.value;
-    this.clientes[i].user = form.user.value;
-    this.clientes[i].password = form.password.value;
+    this.clientes[i].id = parseInt(d.getElementById(`id`).value);
+    this.clientes[i].name = d.getElementById(`name`).value;
+    this.clientes[i].address = d.getElementById(`address`).value;
+    this.clientes[i].last_pa = d.getElementById(`last_pa`).value;
+    this.clientes[i].last_ma = d.getElementById(`last_ma`).value;
+    this.clientes[i].gender = 
+    d.getElementById(`man-gender`).checked ? `H` 
+    : d.getElementById(`woman-gender`).checked ? `M`
+    : `O`;
+    this.clientes[i].rfc = d.getElementById(`rfc`).value;
+    this.clientes[i].tel = d.getElementById(`tel`).value;
+    this.clientes[i].email = d.getElementById(`email`).value;
+    this.clientes[i].user = d.getElementById(`user`).value;
+    this.clientes[i].password = d.getElementById(`password`).value;
 
+    showModal(false);
     clearForm();
     readAllElements();
 
@@ -159,22 +207,39 @@ function update(form){
 }
 
 function deleteById(id){
-    this.clientes = this.clientes.filter(function(el){
-        return el.id !== parseInt(id);
-    });
-    
-    Swal.fire({
-        title: `Cliente Eliminado`,
-        text: `El cliente fue eliminado correctamente`,
-        icon: `success`,
-        padding: '2rem',
-        toast: true,
-        position: 'top-end',
-        timer: 1500,
-        showConfirmButton: false
-    });
 
-    readAllElements();
+    Swal.fire({
+        title: `Eliminar`,
+        text: `¿Esta seguro de eliminar este cliente con id ${id}?`,
+        icon: `warning`,
+        padding: '2rem',
+        position: 'center',
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Confirmar',
+        cancelButtonColor: 'rgb(212, 93, 93)',
+        confirmButtonColor: 'rgb(72, 138, 182)'
+    }).then(function(result){
+        if(result.isConfirmed){
+            this.clientes = this.clientes.filter(function(el){
+                return el.id !== parseInt(id);
+            });
+            
+            Swal.fire({
+                title: `Cliente Eliminado`,
+                text: `El cliente fue eliminado correctamente`,
+                icon: `success`,
+                padding: '2rem',
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        
+            readAllElements();
+        }
+    });
 }
 
 function searchClientById(id){
@@ -186,42 +251,28 @@ function searchClientById(id){
     return -1;
 }
 
-function setRowTable(el, fragmento){
-    $template.querySelector(`.id`).textContent = el.id;
-    $template.querySelector(`.name`).textContent = el.name;
-    $template.querySelector(`.address`).textContent = el.address;
-    $template.querySelector(`.last_pa`).textContent = el.last_pa;
-    $template.querySelector(`.last_ma`).textContent = el.last_ma;
-    $template.querySelector(`.gender`).textContent = el.gender;
-    $template.querySelector(`.rfc`).textContent = el.rfc;
-    $template.querySelector(`.tel`).textContent = el.tel;
-    $template.querySelector(`.email`).textContent = el.email;
-    $template.querySelector(`.user`).textContent = el.user;
-    $template.querySelector(`.password`).textContent = el.password;
-    $template.querySelector(`.status`).textContent = el.status;
-    
-    $template.querySelector(`.update`).dataset.id = el.id; 
-    $template.querySelector(`.update`).dataset.name = el.name; 
-    $template.querySelector(`.update`).dataset.address = el.address; 
-    $template.querySelector(`.update`).dataset.last_pa = el.last_pa;
-    $template.querySelector(`.update`).dataset.last_ma = el.last_ma;
-    $template.querySelector(`.update`).dataset.gender = el.gender;
-    $template.querySelector(`.update`).dataset.rfc = el.rfc;
-    $template.querySelector(`.update`).dataset.tel = el.tel;
-    $template.querySelector(`.update`).dataset.email = el.email;
-    $template.querySelector(`.update`).dataset.user = el.user;
-    $template.querySelector(`.update`).dataset.password = el.password;
-    $template.querySelector(`.update`).dataset.status = el.status;
-    
-    $template.querySelector(`.delete`).dataset.id = el.id;
-    
-    var $clone = d.importNode($template, true);
-    fragmento.appendChild($clone);
+function getClienteById(id){
+    for(var i = 0; i < this.clientes.length; i++){
+        if(this.clientes[i].id === id){
+            return this.clientes[i];
+        }
+    }
+    return null;
+}
+
+function showModal(isActive){
+    var modal = d.querySelector(`.main-modal`);
+    if(isActive){
+        modal.classList.add(`active`);
+    } else{
+        modal.classList.remove(`active`);
+        clearForm();
+    } 
 }
 
 function clearForm(){
     $form.querySelector(`.title-form`).textContent = `Nuevo Cliente`;
-    $form.querySelector(`[type='submit']`).value = `Crear`;
+    $form.querySelector(`.create`).value = `Crear`;
     
     $form.querySelector(`#id`).value = "";
     $form.querySelector(`#name`).value = "";

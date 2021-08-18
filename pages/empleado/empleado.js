@@ -23,11 +23,11 @@ var empleados = [
 ]
 
 
-function setUpdateElements(btnUpdate){
+function setUpdateElements(id){
     $form.querySelector(`.title-form`).textContent = `Editar Empleado`;
-    $form.querySelector(`[type='submit']`).value = `Editar`;
+    $form.querySelector(`.create`).textContent = `Editar`;
 
-    var btnUpdate = btnUpdate.dataset;
+    var btnUpdate = getEmpleadoById(id);
     $form.querySelector(`#id`).value = btnUpdate.id;
     $form.querySelector(`#name`).value = btnUpdate.name;
     $form.querySelector(`#address`).value = btnUpdate.address;
@@ -50,9 +50,21 @@ function setUpdateElements(btnUpdate){
     $form.querySelector(`#action`).value = `UPDATE`;
     var i = searchEmpleadoById(parseInt(btnUpdate.id));
     $form.querySelector(`#position`).value = i;
+
+    showModal(true);
 }
 
 // CRUD ----------------------------------------------------------------
+
+function accion(){
+    var $accion = d.getElementById(`action`);
+    if($accion.value === `CREATE`){
+        create();
+    }
+    if($accion.value === `UPDATE`){
+        update();
+    }
+}
 
 function create(form){
     var empleado = new Object();
@@ -102,19 +114,66 @@ function create(form){
 }
 
 function readAllElements(){
-    var $fragmento = d.createDocumentFragment();
+    var contenido = '';
     for(var i = 0; i < this.empleados.length; i++){
-        setRowTable(this.empleados[i], $fragmento);
+        contenido += getContentRow(this.empleados[i]);
     }
-    $tbody.innerHTML = '';
-    $tbody.appendChild($fragmento);
+    $tbody.innerHTML = contenido;
+}
+
+function getContentRow(el){
+    return `
+    <tr class="fila large-fila">
+        <td><img class="url img-empleado" src="" alt=""></td>
+        <td class="id">${el.id}</td>
+        <td class="name">${el.name}</td>
+        <td class="address">${el.address}</td>
+        <td class="last_pa">${el.last_pa}</td>
+        <td class="last_ma">${el.last_ma}</td>
+        <td class="gender">${el.gender}</td>
+        <td class="rfc">${el.rfc}</td>
+        <td class="tel">${el.tel}</td>
+        <td class="jobposition">${el.jobposition}</td>
+        <td class="photo">${el.photo}</td>
+        <td class="user">${el.user}</td>
+        <td class="password">${el.password}</td>
+        <td class="status">${el.status}</td>
+        <td>
+            <button class="update btn" onclick="setUpdateElements(${el.id});">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete btn" onclick="deleteById(${el.id});">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>
+    </tr>
+    `;
+}
+
+function showModal(isActive){
+    var modal = d.querySelector(`.main-modal`);
+    if(isActive){
+        modal.classList.add(`active`);
+    } else{
+        modal.classList.remove(`active`);
+        clearForm();
+    } 
+}
+
+function getEmpleadoById(id){
+    for(var i = 0; i < this.empleados.length; i++){
+        if(this.empleados[i].id === id){
+            return this.empleados[i];
+        }
+    }
+    return null;
 }
 
 // Recibe por parametro el formulario donde se genero el evento
 
 function update(form){
-    var i = parseInt(form.position.value);
-    var j = searchEmpleadoById(parseInt(form.id.value));
+    var i = parseInt(d.getElementById(`position`).value);
+    var j = searchEmpleadoById(parseInt(d.getElementById(`id`).value));
 
     if(j !== -1 && j !== i) {
         
@@ -132,23 +191,25 @@ function update(form){
         return;
     }
 
-    this.empleados[i].id = parseInt(form.id.value);
-    this.empleados[i].name = form.name.value;
-    this.empleados[i].address = form.address.value;
-    this.empleados[i].last_pa = form.last_pa.value;
-    this.empleados[i].last_ma = form.last_ma.value;
-    this.empleados[i].gender = parseInt(form.gender.value) === 1
-        ? `H`
-        : form.gender.value;
-    this.empleados[i].rfc = form.rfc.value;
-    this.empleados[i].tel = form.tel.value;
-    this.empleados[i].jobposition = form.jobposition.value;
-    this.empleados[i].photo = form.photo.value;
-    this.empleados[i].url = form.url.value;
-    this.empleados[i].user = form.user.value;
-    this.empleados[i].password = form.password.value;
+    this.empleados[i].id = parseInt(d.getElementById(`id`).value);
+    this.empleados[i].name = d.getElementById(`name`).value;
+    this.empleados[i].address = d.getElementById(`address`).value;
+    this.empleados[i].last_pa = d.getElementById(`last_pa`).value;
+    this.empleados[i].last_ma = d.getElementById(`last_ma`).value;
+    this.empleados[i].gender = 
+    d.getElementById(`man-gender`).checked ? `H` 
+    : d.getElementById(`woman-gender`).checked ? `M`
+    : `O`;
+    this.empleados[i].rfc = d.getElementById(`rfc`).value;
+    this.empleados[i].tel = d.getElementById(`tel`).value;
+    this.empleados[i].jobposition = d.getElementById(`jobposition`).value;
+    this.empleados[i].photo = d.getElementById(`photo`).value;
+    this.empleados[i].url = d.getElementById(`url`).value;
+    this.empleados[i].user = d.getElementById(`user`).value;
+    this.empleados[i].password = d.getElementById(`password`).value;
 
     clearForm();
+    showModal(false);
     readAllElements();
 
 
@@ -166,22 +227,37 @@ function update(form){
 }
 
 function deleteById(id){
-    this.empleados = this.empleados.filter(function(el){
-        return el.id !== parseInt(id);
-    });
-    
     Swal.fire({
-        title: `Empleado Eliminado`,
-        text: `El empleado fue eliminado correctamente`,
-        icon: `success`,
+        title: `Eliminar`,
+        text: `¿Esta seguro de eliminar este empleado con id ${id}?`,
+        icon: `warning`,
         padding: '2rem',
-        toast: true,
-        position: 'top-end',
-        timer: 1500,
-        showConfirmButton: false
+        position: 'center',
+        showCancelButton: true,
+        showConfirmButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Confirmar',
+        cancelButtonColor: 'rgb(212, 93, 93)',
+        confirmButtonColor: 'rgb(72, 138, 182)'
+    }).then(function(result){
+        if(result.isConfirmed){
+            this.empleados = this.empleados.filter(function(el){
+                return el.id !== parseInt(id);
+            });
+            
+            Swal.fire({
+                title: `Empleado Eliminado`,
+                text: `El empleado fue eliminado correctamente`,
+                icon: `success`,
+                padding: '2rem',
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            readAllElements();
+        }
     });
-
-    readAllElements();
 }
 
 function searchEmpleadoById(id){
@@ -193,46 +269,9 @@ function searchEmpleadoById(id){
     return -1;
 }
 
-function setRowTable(el, fragmento){
-    $template.querySelector(`.id`).textContent = el.id;
-    $template.querySelector(`.name`).textContent = el.name;
-    $template.querySelector(`.address`).textContent = el.address;
-    $template.querySelector(`.last_pa`).textContent = el.last_pa;
-    $template.querySelector(`.last_ma`).textContent = el.last_ma;
-    $template.querySelector(`.gender`).textContent = el.gender;
-    $template.querySelector(`.rfc`).textContent = el.rfc;
-    $template.querySelector(`.tel`).textContent = el.tel;
-    $template.querySelector(`.jobposition`).textContent = el.jobposition;
-    $template.querySelector(`.photo`).textContent = el.photo;
-    $template.querySelector(`.url`).src = el.url;
-    $template.querySelector(`.user`).textContent = el.user;
-    $template.querySelector(`.password`).textContent = el.password;
-    $template.querySelector(`.status`).textContent = el.status;
-    
-    $template.querySelector(`.update`).dataset.id = el.id; 
-    $template.querySelector(`.update`).dataset.name = el.name; 
-    $template.querySelector(`.update`).dataset.address = el.address; 
-    $template.querySelector(`.update`).dataset.last_pa = el.last_pa;
-    $template.querySelector(`.update`).dataset.last_ma = el.last_ma;
-    $template.querySelector(`.update`).dataset.gender = el.gender;
-    $template.querySelector(`.update`).dataset.rfc = el.rfc;
-    $template.querySelector(`.update`).dataset.tel = el.tel;
-    $template.querySelector(`.update`).dataset.jobposition = el.jobposition;
-    $template.querySelector(`.update`).dataset.photo = el.photo;
-    $template.querySelector(`.update`).dataset.url = el.url;
-    $template.querySelector(`.update`).dataset.user = el.user;
-    $template.querySelector(`.update`).dataset.password = el.password;
-    $template.querySelector(`.update`).dataset.status = el.status;
-    
-    $template.querySelector(`.delete`).dataset.id = el.id;
-    
-    var $clone = d.importNode($template, true);
-    fragmento.appendChild($clone);
-}
-
 function clearForm(){
     $form.querySelector(`.title-form`).textContent = `Nuevo Empleado`;
-    $form.querySelector(`[type='submit']`).value = `Crear`;
+    $form.querySelector(`.create`).textContent = `Crear`;
     
     $form.querySelector(`#id`).value = "";
     $form.querySelector(`#name`).value = "";
