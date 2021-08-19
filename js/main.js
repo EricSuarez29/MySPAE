@@ -45,9 +45,3 @@ function setContentHTML(contenedor, url){
  * Esta función activa o desactiva el modal del modulo.
  * @param {boolean} isActive Si se quiere mostrar el modal del modulo.
  */
-
-function showModal(isActive){
-    var modal = d.querySelector(`.main-modal`);
-    if(isActive) modal.classList.add(`active`);
-    else modal.classList.remove(`active`);
-}

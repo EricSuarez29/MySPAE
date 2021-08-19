@@ -59,12 +59,12 @@ function accion(){
  */
 
 function create(){
-    var producto = new Object(); // caja vacia
+    var producto = new Object();
     
-    producto.id = parseInt(d.getElementById(`id`).value); // atributo id
-    producto.name = d.getElementById(`name`).value;
-    producto.brand = d.getElementById(`brand`).value;
-    producto.price = parseFloat(d.getElementById(`price`).value);
+    producto.id = parseInt(d.getElementById(`txtId`).value); 
+    producto.name = d.getElementById(`txtName`).value;
+    producto.brand = d.getElementById(`txtBrand`).value;
+    producto.price = parseFloat(d.getElementById(`txtPrice`).value);
     producto.status = 1;
     
     var i = searchProductById(producto.id);
@@ -162,7 +162,7 @@ function getProductById(id){
 
 function update(){
     var i = parseInt(d.getElementById(`position`).value);
-    var j = searchProductById(parseInt(d.getElementById(`id`).value));
+    var j = searchProductById(parseInt(d.getElementById(`txtId`).value));
     
     if(j !== -1 && j !== i) {
         
@@ -180,10 +180,10 @@ function update(){
         return;
     }
     
-    this.productos[i].id = parseInt(d.getElementById(`id`).value);
-    this.productos[i].name = d.getElementById(`name`).value;
-    this.productos[i].brand = d.getElementById(`brand`).value;
-    this.productos[i].price = parseFloat(d.getElementById(`price`).value);
+    this.productos[i].id = parseInt(d.getElementById(`txtId`).value);
+    this.productos[i].name = d.getElementById(`txtName`).value;
+    this.productos[i].brand = d.getElementById(`txtBrand`).value;
+    this.productos[i].price = parseFloat(d.getElementById(`txtPrice`).value);
     
     showModal(false);
     readAllElements();
@@ -212,10 +212,10 @@ function setUpdateElements(id){
     $form.querySelector(`.create`).textContent = `Editar`;
 
     var btnUpdate = getProductById(id);
-    $form.querySelector(`#id`).value = btnUpdate.id;
-    $form.querySelector(`#name`).value = btnUpdate.name;
-    $form.querySelector(`#brand`).value = btnUpdate.brand;
-    $form.querySelector(`#price`).value = btnUpdate.price;
+    $form.querySelector(`#txtId`).value = btnUpdate.id;
+    $form.querySelector(`#txtName`).value = btnUpdate.name;
+    $form.querySelector(`#txtBrand`).value = btnUpdate.brand;
+    $form.querySelector(`#txtPrice`).value = btnUpdate.price;
     $form.querySelector(`#action`).value = `UPDATE`;
     var i = searchProductById(parseInt(btnUpdate.id));
     $form.querySelector(`#position`).value = i;
@@ -288,10 +288,10 @@ function clearForm(){
     $form.querySelector(`.title-form`).textContent = `Nuevo Producto`;
     $form.querySelector(`.create`).textContent = `Crear`;
     
-    $form.querySelector(`#id`).value = "";
-    $form.querySelector(`#name`).value = "";
-    $form.querySelector(`#brand`).value = "";
-    $form.querySelector(`#price`).value = "";
+    $form.querySelector(`#txtId`).value = "";
+    $form.querySelector(`#txtName`).value = "";
+    $form.querySelector(`#txtBrand`).value = "";
+    $form.querySelector(`#txtPrice`).value = "";
     $form.querySelector(`#action`).value = "CREATE";
     $form.querySelector(`#position`).value = "";
 }

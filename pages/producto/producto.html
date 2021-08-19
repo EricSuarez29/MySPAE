@@ -13,22 +13,22 @@
         <div class="row p-0 m-0">
             <h2 class="mb-5 title-form">Nuevo Producto</h2>
             <div class="form-floating mb-4 col-3">
-                <input type="text" class="form-control" name="id" id="id" placeholder="example" autocomplete="off"
+                <input type="text" class="form-control" id="txtId" placeholder="example" autocomplete="off"
                     required>
                 <label for="id" class="mx-3">Id</label>
             </div>
             <div class="form-floating mb-4 col-9">
-                <input type="text" class="form-control" name="name" id="name" placeholder="example" autocomplete="off"
+                <input type="text" class="form-control" id="txtName" placeholder="example" autocomplete="off"
                     required>
                 <label for="name" class="mx-3">Nombre</label>
             </div>
             <div class="form-floating mb-4 col-6">
-                <input type="text" class="form-control" name="brand" id="brand" placeholder="example" autocomplete="off"
+                <input type="text" class="form-control" id="txtBrand" placeholder="example" autocomplete="off"
                     reaquired>
                 <label for="brand" class="mx-3">Marca</label>
             </div>
             <div class="form-floating mb-4 col-6">
-                <input type="text" class="form-control" name="price" id="price" placeholder="example" autocomplete="off"
+                <input type="text" class="form-control" id="txtPrice" placeholder="example" autocomplete="off"
                     required>
                 <label for="price" class="mx-3">Precio</label>
             </div>
@@ -48,7 +48,9 @@
 <div class="col-12 mt-5 mt-xl-3 px-3 px-xl-4">
     <div class="row mb-3 m-0 p-0">
         <div class="col-5 col-sm-3 col-xl-2 d-flex justify-content-start">
-            <button class="btn w-100 btn-new" onclick="showModal(true)"><i class="fas fa-file-alt"></i> Nuevo</button>
+            <button class="btn w-100 btn-new" onclick="showModal(true)">
+                <i class="fas fa-file-alt"></i> Nuevo
+            </button>
         </div>
     </div>
     <div class="row scrollbar p-0 m-0 mb-5 mb-lg-0">
@@ -67,21 +69,4 @@
         </table>
     </div>
 </div>
-<template id="templ-producto">
-    <tr class="fila">
-        <td class="id"></td>
-        <td class="name"></td>
-        <td class="brand"></td>
-        <td class="price"></td>
-        <td class="status"></td>
-        <td>
-            <button class="update btn">
-                <i class="fas fa-edit"></i>
-            </button>
-            <button class="delete btn">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </td>
-    </tr>
-</template>
 <script type="text/javascript" src="pages/producto/producto.js"></script>
