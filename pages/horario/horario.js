@@ -30,8 +30,8 @@ function getContentRow(el) {
     return `
 <tr>
     <td class="id">${el.id}</td>
-    <td class="start">${el.start}</td>
-    <td class="end">${el.end}</td>
+    <td class="start text-center">${el.start}:00</td>
+    <td class="end text-center">${el.end}:00</td>
     <td>
         <button class="update btn" onclick="setUpdateElements(${el.id})">
             <i class="fas fa-edit"></i>
