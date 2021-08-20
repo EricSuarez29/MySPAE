@@ -181,8 +181,8 @@ function update() {
         var horarios = getHorarioById(id);
 
         $form.querySelector('#id').value = horarios.id;
-        $form.querySelector('#start').value = horarios.start;
-        $form.querySelector('#end').value = horarios.end;
+        $form.querySelector('#start').value = new Date(0,0,0,horarios.start);
+        $form.querySelector('#end').value = new Date(0,0,0,horarios.end);
         var i = searchHorarioById(parseInt(horarios.id));
         $form.querySelector('#position').value = i;
         $form.querySelector('#action').value = 'UPDATE';

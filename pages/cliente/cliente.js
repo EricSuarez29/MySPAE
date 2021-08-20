@@ -64,7 +64,7 @@ var clientes = [
 
 function setUpdateElements(id){
     $form.querySelector(`.title-form`).textContent = `Editar Cliente`;
-    $form.querySelector(`.create`).value = `Editar`;
+    $form.querySelector(`.create`).textContent = `Editar`;
 
     var btnUpdate = getClienteById(id);
     console.log(btnUpdate)
