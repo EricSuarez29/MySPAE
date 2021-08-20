@@ -9,6 +9,7 @@ var salas = [
         description: 'sala donde se haran los masajes y tratamientos',
         photo: 'foto sala principal',
         sucursal_id: 1,
+        url: 'assets/images/salas/sala1.png',
         status: 1
     },
     {
@@ -17,6 +18,7 @@ var salas = [
         description: 'sala donde tomaras un baño de relajante de vapor',
         photo: 'foto sala sauna',
         sucursal_id: 1,
+        url: 'assets/images/salas/sala2.png',
         status: 1
     },
     {
@@ -25,6 +27,7 @@ var salas = [
         description: 'sala donde se se meditara con incienso',
         photo: 'foto sala meditacion',
         sucursal_id: 1,
+        url: 'assets/images/salas/sala3.png',
         status: 1
     },
     {
@@ -33,6 +36,7 @@ var salas = [
         description: 'sala donde se escuchara a la naturaleza con un relajante masaje',
         photo: 'foto sala sonidos naturales',
         sucursal_id: 1,
+        url: 'assets/images/salas/sala1.png',
         status: 1
     }
 ]
@@ -40,7 +44,7 @@ var salas = [
 function getContentRow(el) {
     return `
     <tr class="fila large-fila">
-        <td><img class="url" src="" alt=""></td>
+        <td><img class="url img-empleado" src="${el.url}" alt=""></td>
         <td class="id">${el.id}</td>
         <td class="name">${el.name}</td>
         <td class="description">${el.description}</td>

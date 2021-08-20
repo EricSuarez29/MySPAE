@@ -1,5 +1,4 @@
 var d = document,
-    $template = d.getElementById(`templ-empleado`).content,
     $tbody = d.querySelector(`tbody`),
     $form = d.querySelector(`.formulario`);
 
@@ -15,11 +14,63 @@ var empleados = [
             tel: `4771235432`,
             jobposition: `Masajista`,
             photo: `pedro`,
-            url: `assets/images/empleados/pedro.jpg`,
+            url: `assets/images/empleados/pedro.png`,
             user: `pedro123`,
             password: `pedro123`,
             status: 1
+        },
+        {
+            id: 2,
+            name: 'Diana',
+            address: 'manzanares',
+            last_pa: 'crespo',
+            last_ma:'servin',
+            gender: 'M',
+            rfc: 'Diac025362',
+            tel: '4772416261',
+            jobposition:'Secretaria',
+            photo: 'diana',
+            url: 'assets/images/empleados/m1.png',
+            user:'diana123',
+            password: 'diana123',
+            status: 1
+        },
+
+        {
+            id: 3,
+            name: 'Mariana',
+            address: 'Campestre',
+            last_pa: 'Hernandez',
+            last_ma:'Garcia',
+            gender: 'M',
+            rfc: 'Mari124190',
+            tel: '47714165371',
+            jobposition:'Masajista',
+            photo: 'Mariana',
+            url: 'assets/images/empleados/m2.png',
+            user:'mariana123',
+            password: 'mariana123',
+            status: 1
+        },
+
+        {
+            id: 4,
+            name: 'Sofia',
+            address: 'Casa blanca',
+            last_pa: 'Mendez',
+            last_ma:'Morales',
+            gender: 'M',
+            rfc: 'sofi6271808',
+            tel: '47756271728',
+            jobposition:'Masajista',
+            photo: 'Sofia',
+            url: 'assets/images/empleados/m3.png',
+            user:'sofia123',
+            password: 'sofia123',
+            status: 1
         }
+
+    
 ]
 
 

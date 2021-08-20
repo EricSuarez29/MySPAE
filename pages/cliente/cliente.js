@@ -16,6 +16,48 @@ var clientes = [
             user: `juanito123`,
             password: `juanelmalo123`,
             status: 1
+        },
+        {
+            id: 2,
+            name: `Axel`,
+            address: `Cerro de Cubilete`,
+            last_pa: `Hernandez`,
+            last_ma: `Mendez`,
+            gender: `H`,
+            rfc: `ERQEWIRH3243234`,
+            tel: `477425643`,
+            email: `jorgeaxelhernandez@gmail.com`,
+            user: `axelh123`,
+            password: `enunlugar`,
+            status: 1
+        },
+        {
+            id: 3,
+            name: `Alan`,
+            address: `Av Piletas`,
+            last_pa: `Ortega`,
+            last_ma: `Loera`,
+            gender: `H`,
+            rfc: `HRTUTPWPER23432`,
+            tel: `4775325334`,
+            email: `alanelguapo@gmail.com`,
+            user: `alanelguapo`,
+            password: `alan123`,
+            status: 1
+        },
+        {
+            id: 4,
+            name: `Angela`,
+            address: `Av Omega`,
+            last_pa: `Perez`,
+            last_ma: `Ramos`,
+            gender: `H`,
+            rfc: `HUITHQE3243HU32`,
+            tel: `477382473434`,
+            email: `angela@gmail.com`,
+            user: `angelaomega`,
+            password: `angi34`,
+            status: 1
         }
 ]
 
