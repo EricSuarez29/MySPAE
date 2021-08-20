@@ -47,6 +47,7 @@ function setUpdateElements(id){
     $form.querySelector(`#user`).value = btnUpdate.user;
     $form.querySelector(`#password`).value = btnUpdate.password;
     $form.querySelector(`#password_confirm`).value = btnUpdate.password;
+    $form.querySelector(`#url`).value = btnUpdate.url;
     $form.querySelector(`#action`).value = `UPDATE`;
     var i = searchEmpleadoById(parseInt(btnUpdate.id));
     $form.querySelector(`#position`).value = i;
@@ -66,21 +67,25 @@ function accion(){
     }
 }
 
-function create(form){
+function create(){
     var empleado = new Object();
 
-    empleado.id = parseInt(form.id.value);
-    empleado.name = form.name.value;
-    empleado.address = form.address.value;
-    empleado.last_pa = form.last_pa.value;
-    empleado.last_ma = form.last_ma.value;
-    empleado.gender = form.gender.value;
-    empleado.rfc = form.rfc.value;
-    empleado.tel = form.tel.value;
-    empleado.photo = form.photo.value;
-    empleado.url = form.url.value;
-    empleado.user = form.user.value;
-    empleado.password = form.password.value;
+    empleado.id = parseInt(d.getElementById(`id`).value);
+    empleado.name = d.getElementById(`name`).value;
+    empleado.address = d.getElementById(`address`).value;
+    empleado.last_pa = d.getElementById(`last_pa`).value;
+    empleado.last_ma = d.getElementById(`last_ma`).value;
+    empleado.gender = 
+    d.getElementById(`man-gender`).checked ? `H` 
+    : d.getElementById(`woman-gender`).checked ? `M`
+    : `O`;
+    empleado.rfc = d.getElementById(`rfc`).value;
+    empleado.tel = d.getElementById(`tel`).value;
+    empleado.jobposition = d.getElementById(`jobposition`).value;
+    empleado.photo = d.getElementById(`photo`).value;
+    empleado.url = d.getElementById(`url`).value;
+    empleado.user = d.getElementById(`user`).value;
+    empleado.password = d.getElementById(`password`).value;
     empleado.status = 1;
 
     var i = searchEmpleadoById(empleado.id);
@@ -110,6 +115,7 @@ function create(form){
     }
 
     clearForm();
+    showModal(false);
     readAllElements();
 }
 
@@ -124,7 +130,7 @@ function readAllElements(){
 function getContentRow(el){
     return `
     <tr class="fila large-fila">
-        <td><img class="url img-empleado" src="" alt=""></td>
+        <td><img class="url img-empleado" src="${el.url}" alt=""></td>
         <td class="id">${el.id}</td>
         <td class="name">${el.name}</td>
         <td class="address">${el.address}</td>

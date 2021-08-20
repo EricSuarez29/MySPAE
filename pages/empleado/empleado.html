@@ -114,7 +114,9 @@
 <div class="col-12 mt-5 mt-xl-3 px-3 px-xl-4">
     <div class="row mb-3 m-0 p-0">
         <div class="col-5 col-sm-3 col-xl-2">
-            <button class="btn btn-success w-100 btn-new"><i class="fas fa-file-alt"></i> Nuevo</button>
+            <button class="btn btn-success w-100 btn-new" onclick="showModal(true);">
+                <i class="fas fa-file-alt"></i> Nuevo
+            </button>
         </div>
     </div>
     <div class="row scrollbar p-0 m-0 mb-5 mb-lg-0">
@@ -142,30 +144,4 @@
         </table>
     </div>
 </div>
-<template id="templ-empleado">
-    <tr class="fila large-fila">
-        <td><img class="url img-empleado" src="" alt=""></td>
-        <td class="id"></td>
-        <td class="name"></td>
-        <td class="address"></td>
-        <td class="last_pa"></td>
-        <td class="last_ma"></td>
-        <td class="gender"></td>
-        <td class="rfc"></td>
-        <td class="tel"></td>
-        <td class="jobposition"></td>
-        <td class="photo"></td>
-        <td class="user"></td>
-        <td class="password"></td>
-        <td class="status"></td>
-        <td>
-            <button class="update btn">
-                <i class="fas fa-edit"></i>
-            </button>
-            <button class="delete btn">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </td>
-    </tr>
-</template>
 <script src="pages/empleado/empleado.js"></script>
